@@ -2,6 +2,7 @@ package de.hsb.simon.commons;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Vector;
 
 import valueobjects.Person;
 import valueobjects.Ware;
@@ -14,4 +15,5 @@ public interface ClientInterface extends Serializable, SimonUnreferenced{
 	
 	public void erhalteAktualisierteWarenDaten(List<Ware> aktualisierteDaten);
 	
+	public void erhalteAktualisierteWarenkorbDaten(Vector<Ware> aktualisierteDaten);
 }
