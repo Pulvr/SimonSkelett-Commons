@@ -1,4 +1,4 @@
-package bib.local.domain.exceptions;
+package exceptions;
 
 /**
  * Falls nach eine Ware nicht existiert sollte diese Exception geworfen werden

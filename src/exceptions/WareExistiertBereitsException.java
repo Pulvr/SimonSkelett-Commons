@@ -1,4 +1,4 @@
-package bib.local.domain.exceptions;
+package exceptions;
 
 import valueobjects.Ware;
 

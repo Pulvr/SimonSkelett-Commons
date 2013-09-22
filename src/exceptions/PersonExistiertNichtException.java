@@ -1,4 +1,4 @@
-package bib.local.domain.exceptions;
+package exceptions;
 /**
  * Wird geworfen falls eine Person nicht existiert
  * @author Florian
