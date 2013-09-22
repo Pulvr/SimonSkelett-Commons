@@ -13,6 +13,7 @@ import valueobjects.Ware;
 import valueobjects.WarenLog;
 import de.root1.simon.SimonUnreferenced;
 import exceptions.BestellteMengeNegativException;
+import exceptions.NichtVielfachesVonPackGroesseException;
 import exceptions.PersonExistiertBereitsException;
 import exceptions.PersonExistiertNichtException;
 import exceptions.WareExistiertBereitsException;
@@ -29,7 +30,7 @@ public interface SessionInterface extends Serializable, SimonUnreferenced{
 	
 	public List<Ware> sucheNachBezeichnung(String bezeichnung);
 	
-	public void fuegeWareEin(String bezeichnung, int nummer, int bestand, float preis) throws WareExistiertBereitsException;
+	public void fuegeWareEin(String bezeichnung, int nummer, int bestand, float preis, int packungsGroesse) throws WareExistiertBereitsException;
 	
 	public void entferneWare(Ware eineWare)throws WareExistiertNichtException;
 	
@@ -48,7 +49,7 @@ public interface SessionInterface extends Serializable, SimonUnreferenced{
 	
 	public void warenkorbKaufen(Person p, Vector<Ware> warenkorb);
 	
-	public void inWarenKorbLegen(int menge, Ware ware, Person p) throws BestellteMengeNegativException;
+	public void inWarenKorbLegen(int menge, Ware ware, Person p) throws BestellteMengeNegativException, NichtVielfachesVonPackGroesseException;
 	
 	public void entferneAusWarenkorb(int menge, Ware ware, Person p)throws BestellteMengeNegativException;
 	

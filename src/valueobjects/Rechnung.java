@@ -14,13 +14,11 @@ import java.util.Vector;
 
 public class Rechnung {
 	
-	//private GregorianCalendar gcal = new GregorianCalendar();
+	
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-	private Date date;
+	
 	private String dateStr;
-	
-	private String rechnungsNr;
-	
+
 	private float gSumme = 0.0F;
 	
 
@@ -45,7 +43,7 @@ public class Rechnung {
 		output += "*-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-* \n";
 		for(int i = 0; i < p.getWarenkorb().size(); i++){
 			output += p.getWarenkorb().elementAt(i)+"\n";
-			this.gSumme += p.getWarenkorb().elementAt(i).getPreis();
+			this.gSumme += p.getWarenkorb().elementAt(i).getRechnungsPreis();
 		}
 		output += "Gesamtpreis: " + df.format(this.gSumme) + "€";
 		

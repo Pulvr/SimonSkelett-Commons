@@ -61,80 +61,47 @@ public class Person implements Serializable{
 	}
 	
 	/**
-	 * Standard-Methode  von Object ï¿½berschrieben
+	 * Standard-Methode  von Object überschrieben
 	 * dient der einfachereren Ausgabe der attribute der Person
-	 * Natï¿½rlich sollte im normalfall das Passwort nicht mit ausgegeben werden, da
-	 * wir aber sonst den wert nicht erkennen kï¿½nnen haben wir ihn uns mit ausgeben lassen
+	 * Natürlich sollte im normalfall das Passwort nicht mit ausgegeben werden, da
+	 * wir aber sonst den wert nicht erkennen können haben wir ihn uns mit ausgeben lassen
 	 */
 	public String toString() {
 		return ("User: " + username + " Nummer : "+nummer +" Passwort : " +password+"\n"
 					+ anrede + " " + name + " / E-Mail: " + email + "\nAdresse:\n" + strasse + "\t" + plz + "\t" + wohnort + "\nMitarbeiter : "+mitarbeiter+"\n\n");
 	}
 	
-	/*public void warenkorbAusgeben(Vector<Ware> warenkorb){
-		if(!warenkorb.isEmpty()){
-			int anzahl = 1;
-			int i = 0;
-			Ware ware1 = warenkorb.elementAt(i);
-			warenkorb.remove(i);
-			if(warenkorb.contains(ware1))
-			
-		}
-	}
-	
-	
-	/*public void schreibeWarenkorb(Vector<Ware> warenkorb) {
-		// PersistenzManager fï¿½r Schreibvorgï¿½nge ï¿½ffnen
-		if (!warenkorb.isEmpty()) {
-			int anzahl = 1;
-			Iterator<Ware> iter = warenkorb.iterator();
-			while (iter.hasNext()) {
-				if(iter.equals(iter.next())){
-					anzahl++;
-				} else {
-					System.out.println("<-- Artikel: " + iter.next().getBezeichnung() + " - Menge: " + anzahl + " -->");
-					anzahl = 1;
-				}
-			}
-		}			
-		
-		// Persistenz-Schnittstelle wieder schlieï¿½en
-		//pm.close();
-	}
-	
-	/*public void warenkorbAusgeben(Vector<Ware> w){
-		int i = 0;
-		int anzahl = 1;
-		//int u = 0;
-		while(w.elementAt(i).equals(w.elementAt(i+1)) && (i+1) <= w.capacity()){
-			anzahl++;
-			i++;
-			//u++;
-		}
-		System.out.println("<-- Artikel: " + w.elementAt(i).getBezeichnung() + " - Menge: " + anzahl + " -->");
-		anzahl = 1;
-		i++;
-		//u++;
-	}*/
-	
 	/**
 	 * Methode zum kaufen der Waren
 	 * @param warenkorb
 	 */
 	public void warenkorbKaufen(Vector<Ware> warenkorb){
-		for(int i = 0; i < warenkorb.size(); i++){
-			warenkorb.elementAt(i).setBestand(warenkorb.elementAt(i).getBestand()-1);
+		for (int i = 0; i < warenkorb.size(); i++) {
+		    int einheiten = 1;
+		    if (warenkorb.elementAt(i) instanceof MassengutWare) {
+		        MassengutWare mw = (MassengutWare) warenkorb.elementAt(i);
+		        einheiten = mw.getPackungsGroesse();
+		    }
+			warenkorb.elementAt(i).setBestand(warenkorb.elementAt(i).getBestand() - einheiten);
 		}
 		this.warenkorbLeeren();
 	}
 	
 	/**
-	 * methode zum hinzufï¿½gen von Waren in den Warenkorb
+	 * methode zum hinzufügen von Waren in den Warenkorb
 	 * @param w
 	 * @param menge
 	 */
-	public void inWarenKorbLegen(Ware w, int menge){
-		for(int i = 0; i < menge; i++)
+	public void inWarenKorbLegen(Ware w, int menge) {
+	    int einheiten = 1;
+	    if (w instanceof MassengutWare) {
+	        MassengutWare mw = (MassengutWare) w;
+	        einheiten = mw.getPackungsGroesse();
+	    }
+	    // Sollte die Menge kein vielfaches der Packungsgröße sein,
+	    // wird Math.floor() verwendet um sicherzustellen,
+	    // dass dem Kunden nicht eine Packung zu viel aufgebucht wird.
+        for(int i = 0; i < Math.floor(menge / einheiten); i++)
 			this.warenkorb.add(w);
 	}
 	
